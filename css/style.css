@@ -92,6 +92,7 @@ form button:hover {
 }
 
 /*Historial de simulaciones: Estética y alineación*/
+
 .historial-container {
   display: flex;
   flex-direction: column;
@@ -136,7 +137,64 @@ form button:hover {
   background-color: #F37C35;
 }
 
+/* Estilos para el buscador de destinos */
+
+.buscador-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  margin: auto;
+  max-width: 600px;
+  margin-bottom: 50px;
+}
+
+.buscador-container h5 {
+  margin-bottom: 25px;
+}
+
+.buscador-container input[type="text"] {
+  border: 1px solid #EA4D37;
+  border-radius: 10px;
+  padding: 10px;
+  color: #0D2D36;
+  width: 300px;
+  box-sizing: border-box;
+  margin-bottom: 15px;
+}
+
+.buscador-container button {
+  background-color: #EA4D37;
+  color: white;
+  border: none;
+  border-radius: 30px;
+  padding: 10px 20px;
+  cursor: pointer;
+  margin-top: 10px;
+}
+
+.buscador-container button:hover {
+  background-color: #F37C35;
+}
+
+.buscador-container ul {
+  list-style: none;
+  padding: 0;
+  width: 100%;
+}
+
+.buscador-container li {
+  background-color: #f5f5f5;
+  border: 1px solid #ddd;
+  padding: 10px;
+  margin-bottom: 10px;
+  border-radius: 10px;
+  text-align: left;
+}
+
 /*Footer */
+
 footer {
   background-color: #0D2D36;
   color: white;
