@@ -2,14 +2,14 @@
 
 * {
   box-sizing: border-box;
-  margin: 0%;
-  padding: 0%;
+  margin: 0;
+  padding: 0;
   font-family: "Quicksand", sans-serif;
   font-size: 20px;
   color: #0D2D36;
 }
 
-.html {
+html {
   scroll-behavior: smooth;
 }
 
@@ -18,18 +18,196 @@ body {
 }
 
 main {
-  margin-top: 5px;
-  margin-right: 10%;
-  margin-bottom: 5px;
-  margin-left: 10%;
+  margin: 5px 10%;
 }
+
+/* Estilos de selección */
 
 ::selection {
   background-color: #EA4D37;
   color: #FFF9EA;
 }
 
-/*Simulador de cuotas: Estética y alineación*/
+/* Estilos Navbar */
+
+.navbar {
+  position: sticky;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 1000;
+  padding: 10px 20px;
+}
+
+/* Sección Index */
+
+.hero-image {
+  position: relative;
+  overflow: hidden;
+}
+
+.hero-image img {
+  width: 75%;
+  height: auto;
+  display: block;
+}
+
+.hero-text {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+}
+
+.btn-primary {
+  background-color: #EA4D37;
+  color: #FFF9EA;
+  border: none;
+  border-radius: 50px;
+  padding: 10px 20px;
+  text-decoration: none;
+  font-size: 16px;
+  font-weight: 500;
+  text-align: center;
+  display: inline-block;
+  transition: background-color 0.3s ease;
+}
+
+.btn-primary:hover {
+  background-color: #F37C35;
+  text-decoration: none;
+}
+
+.btn-primary:active {
+  background-color: #F37C35;
+}
+
+/* Cards */
+
+.card {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  background-color: #ffffff;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  margin: 20px;
+  text-align: center;
+  position: relative;
+}
+
+.card img {
+  width: 100%;
+  height: auto;
+}
+
+.card-body {
+  padding: 20px;
+}
+
+.card-title {
+  font-size: 18px;
+  margin-bottom: 15px;
+}
+
+.card-text {
+  font-size: 16px;
+  color: #555;
+  margin-bottom: 20px;
+  text-align: start;
+}
+
+.card .btn {
+  background-color: #EA4D37;
+  color: white;
+  border: none;
+  border-radius: 30px;
+  padding: 10px 20px;
+  cursor: pointer;
+  font-size: 1em;
+  transition: background-color 0.3s ease;
+}
+
+.card .btn:hover {
+  background-color: #F37C35;
+}
+
+.card .nights {
+  display: block;
+  background-color: #EA4D37;
+  color: white;
+  border-radius: 15px;
+  padding: 5px;
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  font-size: 0.9em;
+}
+
+/* Media Queries para Cards */
+
+@media (min-width: 768px) and (max-width: 1400px) {
+  .card {
+    margin: 10px;
+    min-width: 200px;
+    min-height: 200px;
+  }
+}
+
+@media (max-width: 768px) {
+  .card {
+    margin: 10px;
+    min-width: 200px;
+    min-height: 350px;
+  }
+}
+
+@media (max-width: 576px) {
+  .card {
+    margin: 5px;
+    min-width: 200px;
+    min-height: 350px;
+  }
+}
+
+/* Media queries hero image */
+
+@media (max-width: 1024px) and (min-width: 768px) {
+  .hero-text {
+    font-size: 11px;
+    text-align: start;
+  }
+
+  .hero-text h1 {
+    font-size: 12px;
+  }
+
+  .btn-primary {
+    font-size: 12px;
+  }
+}
+
+@media (max-width: 768px) {
+  .hero-text {
+    font-size: 11px;
+    text-align: start;
+  }
+
+  .hero-text h1 {
+    font-size: 12px;
+  }
+
+  .btn-primary {
+    font-size: 12px;
+    align-items: center;
+  }
+}
+
+
+/* Simulador de cuotas: Estética y alineación */
 
 .simulador-container {
   display: flex;
@@ -37,9 +215,7 @@ main {
   align-items: center;
   justify-content: center;
   text-align: center;
-  margin: auto;
-  margin-top: 100px;
-  margin-bottom: 100px;
+  margin: 100px auto;
   max-width: 600px;
 }
 
@@ -52,7 +228,7 @@ input[type="number"],
 select {
   border: 1px solid #EA4D37;
   border-radius: 10px;
-  background-color: transparent;
+  background-color: #ffffff;
   padding: 10px;
   color: #0D2D36;
   width: 300px;
@@ -61,10 +237,10 @@ select {
   transition: background-color 0.3s ease;
 }
 
-input[type="text"]:valid,
-input[type="number"]:valid,
-select:valid {
-  background-color: #ffffff;
+input[type="text"]:focus,
+input[type="number"]:focus,
+select:focus {
+  background-color: #f0f0f0;
 }
 
 form label {
@@ -84,14 +260,24 @@ form button {
   padding: 10px 20px;
   cursor: pointer;
   margin-top: 25px;
-  margin-right: 10px;
+  transition: background-color 0.3s ease;
 }
 
 form button:hover {
   background-color: #F37C35;
 }
 
-/*Historial de simulaciones: Estética y alineación*/
+#resultado {
+  margin-top: 20px;
+  padding: 10px;
+  background-color: white;
+  border-radius: 5px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  font-family: 'Quicksand', sans-serif;
+  color: #333;
+}
+
+/* Simulador de cuotas: Historial */
 
 .historial-container {
   display: flex;
@@ -115,7 +301,7 @@ form button:hover {
 }
 
 .historial-container li {
-  background-color: #f5f5f5;
+  background-color: #ffffff;
   border: 1px solid #ddd;
   padding: 10px;
   margin-bottom: 10px;
@@ -131,13 +317,14 @@ form button:hover {
   padding: 10px 20px;
   cursor: pointer;
   margin-top: 25px;
+  transition: background-color 0.3s ease;
 }
 
 .historial-container button:hover {
   background-color: #F37C35;
 }
 
-/* Estilos para el buscador de destinos */
+/* Simulador de cuotas: Buscador */
 
 .buscador-container {
   display: flex;
@@ -162,6 +349,11 @@ form button:hover {
   width: 300px;
   box-sizing: border-box;
   margin-bottom: 15px;
+  transition: background-color 0.3s ease;
+}
+
+.buscador-container input[type="text"]:focus {
+  background-color: #f0f0f0;
 }
 
 .buscador-container button {
@@ -172,6 +364,7 @@ form button:hover {
   padding: 10px 20px;
   cursor: pointer;
   margin-top: 10px;
+  transition: background-color 0.3s ease;
 }
 
 .buscador-container button:hover {
@@ -185,7 +378,7 @@ form button:hover {
 }
 
 .buscador-container li {
-  background-color: #f5f5f5;
+  background-color: #ffffff;
   border: 1px solid #ddd;
   padding: 10px;
   margin-bottom: 10px;
@@ -193,7 +386,228 @@ form button:hover {
   text-align: left;
 }
 
-/*Footer */
+/* Estilo personalizado para SweetAlert */
+
+.swal-container {
+  font-family: 'Quicksand', sans-serif;
+}
+
+.swal-popup {
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.swal-title {
+  color: #EA4D37;
+}
+
+.swal-content {
+  color: #0D2D36;
+}
+
+.swal-confirm-button {
+  background-color: #EA4D37;
+  color: #FFF9EA;
+  border-radius: 30px;
+  padding: 10px 20px;
+  font-size: 16px;
+  font-weight: 800px;
+  border: none;
+}
+
+.swal-confirm-button:hover {
+  background-color: #F37C35;
+}
+
+/* Sección Contacto */
+
+#contacto {
+  background-color: #ffffff;
+  padding: 50px 10%;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  margin: 50px auto;
+  max-width: 1000px;
+}
+
+.ubicacion iframe {
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.form-contacto {
+  margin-top: 30px;
+}
+
+.form-contacto h2 {
+  color: #EA4D37;
+  margin-top: 50px;
+  margin-bottom: 50px;
+  font-size: 28px;
+}
+
+.form-contacto label {
+  font-size: 18px;
+  font-weight: 500;
+  display: block;
+  margin-bottom: 10px;
+  color: #0D2D36;
+}
+
+.form-contacto input[type="text"],
+.form-contacto input[type="tel"],
+.form-contacto input[type="email"],
+.form-contacto textarea {
+  border: 1px solid #EA4D37;
+  border-radius: 10px;
+  padding: 10px;
+  color: #0D2D36;
+  width: 100%;
+  box-sizing: border-box;
+  margin-bottom: 15px;
+  transition: background-color 0.3s ease;
+}
+
+.form-contacto input[type="text"]:focus,
+.form-contacto input[type="tel"]:focus,
+.form-contacto input[type="email"]:focus,
+.form-contacto textarea:focus {
+  background-color: #f0f0f0;
+}
+
+/* Sección Contacto */
+
+.terminos {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 15px;
+  margin: 15px 0;
+}
+
+.terminos a {
+  color: #EA4D37;
+  text-decoration: none;
+  font-size: 16px;
+}
+
+.terminos a:hover {
+  text-decoration: underline;
+}
+
+.boton-container {
+  display: flex;
+  justify-content: center;
+  margin: 20px 0;
+}
+
+.boton-contacto {
+  background-color: #EA4D37;
+  color: #FFF9EA;
+  border: none;
+  border-radius: 30px;
+  padding: 10px 20px;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: 800;
+  transition: background-color 0.3s ease;
+  text-align: center;
+  display: inline-block;
+}
+
+.boton-contacto:hover {
+  background-color: #F37C35;
+}
+
+/* Sección about us */
+
+.hero-image {
+  position: relative;
+  text-align: center;
+  color: white;
+}
+
+.hero-image img {
+  width: 100%;
+  height: 100vh;
+  object-fit: cover;
+}
+
+.hero-text {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: #FFF9EA;
+  background-color: rgba(0, 0, 0, 0.5);
+  padding: 20px;
+  border-radius: 5px;
+}
+
+.hero-text h1 {
+  font-size: 3em;
+  margin-bottom: 0.5em;
+}
+
+.hero-text p {
+  color: #FFF9EA;
+  font-size: 1.5em;
+  margin-bottom: 1em;
+}
+
+.hero-text .btn {
+  color: #FFF9EA;
+  font-size: 1.2em;
+  padding: 10px 20px;
+}
+
+/* Estilos para la sección About Us */
+
+.about-us {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  margin: 50px auto;
+  max-width: 800px;
+}
+
+.about-us img {
+  width: 100%;
+  max-width: 800px;
+  border-radius: 10px;
+  height: 50vh;
+  object-fit: cover;
+  margin-bottom: 20px;
+}
+
+.texto-about {
+  text-align: justify;
+  padding: 20px;
+  background-color: #ffffff;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.texto-about p {
+  margin-bottom: 20px;
+  line-height: 1.6;
+}
+
+/* Media queries para about us */
+
+@media (max-width: 768px) {
+  .about-us {
+    max-width: 90%;
+  }
+
+  .texto-about {
+    padding: 15px;
+  }
+}
+
+/* Sección Footer */
 
 footer {
   background-color: #0D2D36;
@@ -210,7 +624,15 @@ footer img {
 }
 
 footer p {
-  text-align: center;
   color: #ffffff;
   font-size: 16px;
+}
+
+footer a {
+  outline: none;
+  text-decoration: none;
+}
+
+footer a img {
+  vertical-align: middle;
 }

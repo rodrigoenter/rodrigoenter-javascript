@@ -3,136 +3,271 @@ let historialSimulaciones = [];
 
 // Función principal del simulador de cuotas
 function simuladorCuotas() {
-    function obtenerEntrada(id) {
-        return document.getElementById(id).value;
-    }
+    console.log("Inicio de simulador de cuotas");
 
-    function mostrarMensaje(mensaje) {
+    const obtenerEntrada = (id) => document.getElementById(id).value;
+
+    const mostrarMensaje = (mensaje) => {
+        console.log(`Mensaje al usuario: ${mensaje}`);
         document.getElementById('resultado').textContent = mensaje;
-    }
+    };
 
-    function calcularCuotaConInteres(precio, cuotas, interesAnual) {
-        let interesMensual = interesAnual / 12 / 100;
-        let cuota = precio * interesMensual / (1 - Math.pow(1 + interesMensual, -cuotas));
-        console.log(`Cuota calculada con interés: $${cuota.toFixed(2)} (interés anual: ${interesAnual}%)`);
+    const calcularCuotaConInteres = (precio, cuotas, interesAnual) => {
+        console.log(`Calculando cuota con interés: precio=${precio}, cuotas=${cuotas}, interesAnual=${interesAnual}`);
+        const interesMensual = interesAnual / 12 / 100;
+        const cuota = precio * interesMensual / (1 - Math.pow(1 + interesMensual, -cuotas));
         return Math.round(cuota);
-    }
+    };
 
-    function calcularCuota(precio, cuotas) {
-        let cuota;
-        if (cuotas === 9) {
-            cuota = calcularCuotaConInteres(precio, cuotas, 24.85);
-        } else if (cuotas === 12) {
-            cuota = calcularCuotaConInteres(precio, cuotas, 34.22);
-        } else {
-            cuota = Math.round(precio / cuotas);
-        }
-        console.log(`Cuota calculada: $${cuota}`);
-        return cuota;
-    }
+    //Ejercicio: incluír operadores ternarios
+    const calcularCuota = (precio, cuotas) => {
+        console.log(`Calculando cuota: precio=${precio}, cuotas=${cuotas}`);
 
-    function obtenerDatosUsuario() {
-        let nombre = obtenerEntrada("nombre");
-        let edad = obtenerEntrada("edad");
-        let destino = obtenerEntrada("destino");
+        const tasasInteres = { 9: 24.85, 12: 34.22 };
 
-        console.log(`Datos de usuario obtenidos: Nombre - ${nombre}, Edad - ${edad}, Destino - ${destino}`);
+        const interes = tasasInteres[cuotas] || 0;
+        return interes
+            ? calcularCuotaConInteres(precio, cuotas, interes)
+            : Math.round(precio / cuotas);
+    };
+
+    const obtenerDatosUsuario = () => {
+        console.log("Obtención de datos del usuario");
         return {
-            nombre: nombre,
-            edad: edad,
-            destino: destino
+            nombre: obtenerEntrada("nombre"),
+            edad: obtenerEntrada("edad"),
+            destino: obtenerEntrada("destino")
         };
-    }
+    };
 
-    function limpiarYConvertirPrecio(precio) {
-        let precioConvertido = parseFloat(precio.replace(/[^0-9,.-]/g, '').replace(',', '.'));
-        console.log(`Precio convertido: $${precioConvertido}`);
-        return precioConvertido;
-    }
+    const limpiarYConvertirPrecio = (precio) => {
+        console.log(`Limpiar y convertir el precio: ${precio}`);
+        return parseFloat(precio.replace(/[^0-9,.-]/g, '').replace(',', '.'));
+    };
 
-    let datosUsuario = obtenerDatosUsuario();
-    let precioProducto = limpiarYConvertirPrecio(obtenerEntrada("precioProducto"));
-    let cuotas = parseInt(obtenerEntrada("cuotas"));
-    console.log(`Cantidad de cuotas seleccionadas: ${cuotas}`);
-    let precioPorCuota = calcularCuota(precioProducto, cuotas);
+    const datosUsuario = obtenerDatosUsuario();
+    console.log("Datos del usuario obtenidos:", datosUsuario);
 
-    mostrarMensaje(`Estimad@ ${datosUsuario.nombre}, el precio por cuota para viajar a ${datosUsuario.destino} es: $${precioPorCuota.toLocaleString('es-ES', { minimumFractionDigits: 0, maximumFractionDigits: 0 })}`);
+    const precioProducto = limpiarYConvertirPrecio(obtenerEntrada("precioProducto"));
+    const cuotas = parseInt(obtenerEntrada("cuotas"));
+    const precioPorCuota = calcularCuota(precioProducto, cuotas);
+    const precioTotal = cuotas === 9 || cuotas === 12
+        ? precioProducto * (1 + (cuotas === 9 ? 0.2485 : 0.3422))
+        : precioProducto;
 
-    let simulacion = { ...datosUsuario, precioProducto, cuotas, precioPorCuota };
+    let resultado = `Hola ${datosUsuario.nombre}, el precio total del viaje a ${datosUsuario.destino} es de $${precioTotal.toFixed(2)}. Pagás ${cuotas} cuotas de $${precioPorCuota.toFixed(2)} cada una.`;
+    mostrarMensaje(resultado);
+
+    // Agregar al historial
+    const simulacion = { ...datosUsuario, precioProducto, cuotas, precioPorCuota, precioTotal };
+    console.log("Simulación generada:", simulacion);
     historialSimulaciones.push(simulacion);
-    console.log("Simulación añadida al historial:", simulacion);
+    console.log("Historial de simulaciones actualizado:", historialSimulaciones);
+
+    guardarHistorialLocalStorage();
     mostrarHistorial();
-}
-
-// Función para validar ingreso de números sin símbolos
-function validarEntradaNumerica(input) {
-    input.value = input.value.replace(/[^0-9]/g, '');
-    console.log("Entrada numérica validada:", input.value);
-}
-
-// Función para mostrar el historial de simulaciones
-function mostrarHistorial() {
-    let listaHistorial = document.getElementById('listaHistorial');
-    listaHistorial.innerHTML = '';
-
-    historialSimulaciones.forEach((simulacion, index) => {
-        let item = document.createElement('li');
-        item.textContent = `Simulación ${index + 1}: ${simulacion.nombre}, ${simulacion.destino}, $${simulacion.precioPorCuota} por cuota (${simulacion.cuotas} cuotas)`;
-        listaHistorial.appendChild(item);
-    });
-    console.log("Historial actualizado:", historialSimulaciones);
-}
-
-// Función para guardar el historial en un archivo *.txt
-function guardarHistorial() {
-    if (confirm("¿Está seguro que desea guardar el historial de tu viaje?")) {
-        let contenido = historialSimulaciones.map((simulacion, index) => {
-            return `Simulación ${index + 1}: ${simulacion.nombre}, ${simulacion.destino}, $${simulacion.precioPorCuota} por cuota (${simulacion.cuotas} cuotas)`;
-        }).join('\n');
-
-        let blob = new Blob([contenido], { type: "text/plain;charset=utf-8" });
-        let enlace = document.createElement('a');
-        enlace.href = URL.createObjectURL(blob);
-        enlace.download = "historial_simulaciones.txt";
-        enlace.click();
-        console.log("Historial guardado como historial_simulaciones.txt.");
-    }
 }
 
 // Función para reiniciar el simulador/limpiar campos
 function reiniciarSimulador() {
+    console.log("Reiniciar simulador y limpieza de campos");
     document.getElementById("simuladorCuotas").reset();
     document.getElementById('resultado').textContent = '';
     document.getElementById('listaHistorial').innerHTML = '';
     document.getElementById('buscarDestino').value = '';
     document.getElementById('listaResultados').innerHTML = '';
-    console.log("Simulador reiniciado.");
+
+    // Limpiar almacenamiento local
+    localStorage.removeItem('datosUsuario');
+    localStorage.removeItem('historialSimulaciones');
+    historialSimulaciones = [];
+    console.log("Almacenamiento local y simulador reiniciados");
 }
 
-// Función para buscar simulaciones por destino
-function buscarPorDestino() {
-    let destinoBuscado = document.getElementById('buscarDestino').value.trim();
-    let resultados = filtrarPorDestino(destinoBuscado);
+// Función para validar ingreso de números sin símbolos
+function validarEntradaNumerica(input) {
+    console.log(`Validando entrada numérica: ${input.value}`);
+    input.value = input.value.replace(/[^0-9]/g, '');
+}
 
-    let listaResultados = document.getElementById('listaResultados');
+// Función para agregar al historial
+function agregarAlHistorial(nombre, edad, destino, precioProducto, cuotas, precioTotal) {
+    console.log("Agregar al historial de simulaciones");
+    let listaHistorial = document.getElementById('listaHistorial');
+    let li = document.createElement('li');
+    li.textContent = `${nombre}, ${edad} años - Viaje a ${destino} (${precioProducto}): $${precioTotal.toFixed(2)} en ${cuotas} cuotas.`;
+    listaHistorial.appendChild(li);
+
+    // Guardar en el historial de simulaciones
+    historialSimulaciones.push({ nombre, edad, destino, precioProducto, cuotas, precioTotal });
+    guardarHistorialLocalStorage();
+}
+
+// Función para guardar el historial y los inputs en localStorage
+function guardarHistorialLocalStorage() {
+    console.log("Guardado de historial de simulaciones en localStorage");
+    localStorage.setItem('historialSimulaciones', JSON.stringify(historialSimulaciones));
+
+    // Guardar inputs en localStorage
+    const datosUsuario = {
+        nombre: document.getElementById('nombre').value,
+        edad: document.getElementById('edad').value,
+        destino: document.getElementById('destino').value,
+        precioProducto: document.getElementById('precioProducto').value,
+        cuotas: document.getElementById('cuotas').value
+    };
+    localStorage.setItem('datosUsuario', JSON.stringify(datosUsuario));
+    console.log("Datos del usuario guardados en localStorage:", datosUsuario);
+}
+
+// Función para integrar SweetAlert y Toastify
+function buscarPorDestino() {
+    console.log("Buscando simulaciones por destino");
+    const destinoBuscado = normalizarTexto(document.getElementById('buscarDestino').value.trim());
+    const resultados = filtrarPorDestino(destinoBuscado);
+
+    const listaResultados = document.getElementById('listaResultados');
     listaResultados.innerHTML = '';
 
     if (resultados.length > 0) {
+        console.log("Resultados encontrados:", resultados);
         resultados.forEach((simulacion, index) => {
-            let item = document.createElement('li');
-            item.textContent = `Simulación ${index + 1}: ${simulacion.nombre}, ${simulacion.destino}, $${simulacion.precioPorCuota} por cuota (${simulacion.cuotas} cuotas)`;
+            const item = document.createElement('li');
+            item.textContent = `Resultados ${index + 1}: ${simulacion.nombre}, ${simulacion.destino}, $${simulacion.precioPorCuota} por cuota (${simulacion.cuotas} cuotas)`;
+            item.style.marginTop = '20px';
             listaResultados.appendChild(item);
         });
-        console.log("Resultados de búsqueda mostrados:", resultados);
+
+        Toastify({
+            text: "Resultados encontrados!",
+            duration: 3000,
+            gravity: "top",
+            position: "right",
+            style: {
+                background: "#EA4D37",
+                color: "#FFF9EA",
+                fontFamily: "'Quicksand', sans-serif",
+                borderRadius: "10px",
+                padding: "10px 20px",
+                fontSize: "16px",
+                boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
+            }
+        }).showToast();
     } else {
-        alert("No encontramos simulaciones para el destino ingresado.");
-        console.log("No se encontraron simulaciones para el destino buscado:", destinoBuscado);
+        console.log("No se encontraron resultados para el destino ingresado");
+        Swal.fire({
+            icon: 'error',
+            title: 'Parece que algo salió mal :(',
+            text: 'No encontramos resultados para el destino ingresado.',
+            confirmButtonText: 'Entendido',
+            customClass: {
+                container: 'swal-container',
+                popup: 'swal-popup',
+                title: 'swal-title',
+                content: 'swal-content',
+                confirmButton: 'swal-confirm-button'
+            },
+            buttonsStyling: false,
+            background: '#ffffff',
+            color: '#0D2D36',
+            confirmButtonColor: '#EA4D37',
+            confirmButtonText: 'Entendido'
+        });
     }
 }
 
+// Función para normalizar texto (eliminar acentos y convertir a minúsculas)
+function normalizarTexto(texto) {
+    return texto
+        .toLowerCase()
+        .normalize('NFD')
+        .replace(/[\u0300-\u036f]/g, '');
+}
+
 // Función para filtrar simulaciones por destino
-function filtrarPorDestino(destinoBuscado) {
-    let resultados = historialSimulaciones.filter(simulacion => simulacion.destino.toLowerCase() === destinoBuscado.toLowerCase());
-    console.log(`Simulaciones filtradas por destino (${destinoBuscado}):`, resultados);
-    return resultados;
+const filtrarPorDestino = (destinoBuscado) => {
+    console.log(`Filtrado de simulaciones para el destino: ${destinoBuscado}`);
+    return historialSimulaciones.filter(({ destino }) =>
+        normalizarTexto(destino).includes(destinoBuscado)
+    );
+};
+
+// Función para guardar el historial en un archivo de texto (.txt)
+function guardarHistorialComoTxt() {
+    console.log("Guardado de historial como archivo de texto");
+    const contenidoHistorial = historialSimulaciones.map((simulacion, index) =>
+        `Simulación ${index + 1}: ${simulacion.nombre}, ${simulacion.destino}, $${simulacion.precioPorCuota} por cuota (${simulacion.cuotas} cuotas)`
+    ).join('\n');
+
+    // Crear un blob con el contenido del historial
+    const blob = new Blob([contenidoHistorial], { type: 'text/plain;charset=utf-8' });
+
+    // Crear un enlace para la descarga del archivo
+    const enlace = document.createElement('a');
+    enlace.href = URL.createObjectURL(blob);
+    enlace.download = 'historial_simulaciones.txt';
+    enlace.click();
+
+    // Liberar el objeto URL creado
+    URL.revokeObjectURL(enlace.href);
+    console.log("Historial guardado como archivo de texto y enlace de descarga creado");
+}
+
+// Función para ingresar el precio desde las cards
+function consultarPrecio(destino, noches, precio) {
+    console.log(`Consultando precio para: ${destino} (${noches} noches) con precio ${precio}`);
+    document.getElementById('destino').value = destino;
+    document.getElementById('precioProducto').value = precio;
+    Toastify({
+        text: `El precio para ${destino} (${noches}) es $${precio}`,
+        close: true,
+        gravity: 'top',
+        position: 'right',
+        style: {
+            background: "#EA4D37",
+            color: "#FFF9EA",
+            fontFamily: "'Quicksand', sans-serif",
+            borderRadius: "10px",
+            padding: "10px 20px",
+            fontSize: "16px",
+            boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
+        },
+    }).showToast();
+}
+
+// Recuperar datos desde localStorage al cargar la página
+document.addEventListener('DOMContentLoaded', () => {
+    console.log("Cargando datos desde localStorage");
+    const historialGuardado = localStorage.getItem('historialSimulaciones');
+    if (historialGuardado) {
+        historialSimulaciones = JSON.parse(historialGuardado);
+        console.log("Historial cargado desde localStorage:", historialSimulaciones);
+    }
+
+    const datosUsuarioGuardados = localStorage.getItem('datosUsuario');
+    if (datosUsuarioGuardados) {
+        const { nombre, edad, destino, precioProducto, cuotas } = JSON.parse(datosUsuarioGuardados);
+        document.getElementById('nombre').value = nombre || '';
+        document.getElementById('edad').value = edad || '';
+        document.getElementById('destino').value = destino || '';
+        document.getElementById('precioProducto').value = precioProducto || '';
+        document.getElementById('cuotas').value = cuotas || '';
+        console.log("Datos del usuario cargados desde localStorage:", { nombre, edad, destino, precioProducto, cuotas });
+    }
+
+    mostrarHistorial();
+});
+
+// Función para mostrar historial en la interfaz
+function mostrarHistorial() {
+    console.log("Mostrando historial de simulaciones");
+    const listaHistorial = document.getElementById('listaHistorial');
+    listaHistorial.innerHTML = '';
+
+    historialSimulaciones.forEach((simulacion, index) => {
+        const li = document.createElement('li');
+        li.textContent = `Simulación ${index + 1}: ${simulacion.nombre}, ${simulacion.destino}, $${simulacion.precioPorCuota} por cuota (${simulacion.cuotas} cuotas)`;
+        listaHistorial.appendChild(li);
+    });
+    console.log("Historial mostrado en la interfaz");
 }
