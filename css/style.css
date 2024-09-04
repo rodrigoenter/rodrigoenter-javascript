@@ -39,17 +39,49 @@ main {
   padding: 10px 20px;
 }
 
+.navbar-nav .nav-link {
+  color: #0D2D36;
+  font-size: 18px;
+  margin: 0 15px;
+  transition: color 0.3s ease;
+}
+
+.navbar-nav .nav-link:hover {
+  color: #F37C35;
+}
+
+.btn-primary {
+  background-color: #EA4D37;
+  color: #FFF9EA;
+  border: none;
+  border-radius: 50px;
+  padding: 10px 20px;
+  text-decoration: none;
+  font-size: 16px;
+  font-weight: 500;
+  text-align: center;
+  display: inline-block;
+  transition: background-color 0.3s ease;
+}
+
+.btn-primary:hover {
+  background-color: #F37C35;
+}
+
 /* Sección Index */
 
 .hero-image {
   position: relative;
   overflow: hidden;
+  width: 100%;
+  text-align: center;
 }
 
 .hero-image img {
-  width: 75%;
+  width: 100%;
   height: auto;
   display: block;
+  margin: 0 auto;
 }
 
 .hero-text {
@@ -58,6 +90,15 @@ main {
   left: 50%;
   transform: translate(-50%, -50%);
   text-align: center;
+  color: #ebebeb;
+  background-color: rgba(0, 0, 0, 0.726);
+  border-radius: 10px;
+  padding: 10px;
+}
+
+.hero-text p {
+  color: #ebebeb;
+  font-weight: 500;
 }
 
 .btn-primary {
@@ -83,20 +124,12 @@ main {
   background-color: #F37C35;
 }
 
-/* Cards */
+/* Sección Index: Cards */
 
 .card {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  background-color: #ffffff;
-  border: 1px solid #ddd;
-  border-radius: 10px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  overflow: hidden;
-  margin: 20px;
-  text-align: center;
-  position: relative;
+  margin: 10px;
+  min-width: 200px;
+  min-height: 150px;
 }
 
 .card img {
@@ -147,57 +180,65 @@ main {
   font-size: 0.9em;
 }
 
-/* Media Queries para Cards */
+/* Sección Index: Media queries cards */
 
 @media (min-width: 768px) and (max-width: 1400px) {
   .card {
-    margin: 10px;
-    min-width: 200px;
-    min-height: 200px;
+    flex-basis: calc(33.33% - 20px);
+  }
+}
+
+@media (min-width: 768px) and (max-width: 992px) {
+  .col-md-3 {
+    max-width: 50%;
+    flex: 0 0 50%;
   }
 }
 
 @media (max-width: 768px) {
+  .hero-text {
+    padding: 2px;
+  }
   .card {
-    margin: 10px;
-    min-width: 200px;
+    flex-basis: calc(100% - 20px);
     min-height: 350px;
   }
 }
 
 @media (max-width: 576px) {
+  .hero-text {
+    padding: 2px;
+  }
+
   .card {
     margin: 5px;
-    min-width: 200px;
+    min-width: 100%;
     min-height: 350px;
   }
 }
 
-/* Media queries hero image */
-
-@media (max-width: 1024px) and (min-width: 768px) {
-  .hero-text {
-    font-size: 11px;
-    text-align: start;
-  }
-
-  .hero-text h1 {
-    font-size: 12px;
-  }
-
-  .btn-primary {
-    font-size: 12px;
+@media (min-width: 1400px) {
+  .card {
+    min-height: 400px;
+    min-width: 300px;
   }
 }
 
+/* Sección Index: Media queries hero image */
+
+
 @media (max-width: 768px) {
+
   .hero-text {
-    font-size: 11px;
-    text-align: start;
+    padding: 2px;
   }
 
   .hero-text h1 {
-    font-size: 12px;
+    font-size: 22px;
+  }
+
+  .hero-text p {
+    font-size: 16px;
   }
 
   .btn-primary {
@@ -206,8 +247,46 @@ main {
   }
 }
 
+/* Sección Index: Oferta del día*/
 
-/* Simulador de cuotas: Estética y alineación */
+.alert {
+  background-image: url('../assets/images/oferta.png');
+  background-size: cover;
+  background-position: center;
+  color: #ebebeb;
+  border-radius: 15px; 
+  padding: 20px;
+}
+
+.alert-heading {
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin-bottom: 10px;
+}
+
+#ofertaDescripcion {
+  font-size: 1rem;
+  margin-bottom: 20px;
+  color: #ebebeb;
+}
+
+.alert .btn-primary {
+  background-color: #EA4D37;
+  border: none;
+  border-radius: 50px;
+  padding: 10px 20px;
+  font-size: 16px;
+  font-weight: 500;
+  color: #FFF9EA;
+  transition: background-color 0.3s;
+}
+
+.alert .btn-primary:hover,
+.alert .btn-primary:focus {
+  background-color: #F37C35;
+}
+
+/* Sección Index: Simulador de cuotas */
 
 .simulador-container {
   display: flex;
@@ -273,11 +352,10 @@ form button:hover {
   background-color: white;
   border-radius: 5px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  font-family: 'Quicksand', sans-serif;
   color: #333;
 }
 
-/* Simulador de cuotas: Historial */
+/* Sección Index: Simulador de cuotas -Historial- */
 
 .historial-container {
   display: flex;
@@ -324,7 +402,7 @@ form button:hover {
   background-color: #F37C35;
 }
 
-/* Simulador de cuotas: Buscador */
+/* Sección Index: Simulador de cuotas - Buscador */
 
 .buscador-container {
   display: flex;
@@ -386,11 +464,7 @@ form button:hover {
   text-align: left;
 }
 
-/* Estilo personalizado para SweetAlert */
-
-.swal-container {
-  font-family: 'Quicksand', sans-serif;
-}
+/* Sección Index: Personalización SweetAlert */
 
 .swal-popup {
   border-radius: 10px;
@@ -416,6 +490,85 @@ form button:hover {
 }
 
 .swal-confirm-button:hover {
+  background-color: #F37C35;
+}
+
+/* Sección Index: Botón de volver arriba */
+
+.scroll-to-top-btn {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background-color: #EA4D37;
+  color: #FFF9EA;
+  border: none;
+  border-radius: 20px;
+  padding: 10px 15px;
+  font-size: 16px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  display: none;
+}
+
+.scroll-to-top-btn:hover {
+  background-color: #F37C35;
+}
+
+/* Sección Index: Imput suscripción */
+.subscription-section {
+  background-color: #f4f4f4;
+  padding: 20px;
+  margin: 20px 0;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  text-align: center;
+}
+
+.subscription-title {
+  font-size: 24px;
+  color: #EA4D37;
+  margin-bottom: 5px;
+  margin-top: 5px;
+}
+
+.subscription-description {
+  font-size: 16px;
+  color: #0D2D36;
+  margin-bottom: 5px;
+}
+
+.subscription-form {
+  display: inline;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.subscription-form input[type="email"] {
+  border: 1px solid #EA4D37;
+  border-radius: 20px;
+  padding: 10px;
+  font-size: 16px;
+  width: 100%;
+  max-width: 300px;
+  box-sizing: border-box;
+}
+
+.subscription-btn {
+  background-color: #EA4D37;
+  color: #FFF9EA;
+  border: none;
+  border-radius: 20px;
+  padding: 10px 20px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  flex-shrink: 0;
+  margin-bottom: 5px;
+}
+
+.subscription-btn:hover {
   background-color: #F37C35;
 }
 
@@ -475,8 +628,6 @@ form button:hover {
   background-color: #f0f0f0;
 }
 
-/* Sección Contacto */
-
 .terminos {
   display: flex;
   justify-content: center;
@@ -521,48 +672,6 @@ form button:hover {
 
 /* Sección about us */
 
-.hero-image {
-  position: relative;
-  text-align: center;
-  color: white;
-}
-
-.hero-image img {
-  width: 100%;
-  height: 100vh;
-  object-fit: cover;
-}
-
-.hero-text {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  color: #FFF9EA;
-  background-color: rgba(0, 0, 0, 0.5);
-  padding: 20px;
-  border-radius: 5px;
-}
-
-.hero-text h1 {
-  font-size: 3em;
-  margin-bottom: 0.5em;
-}
-
-.hero-text p {
-  color: #FFF9EA;
-  font-size: 1.5em;
-  margin-bottom: 1em;
-}
-
-.hero-text .btn {
-  color: #FFF9EA;
-  font-size: 1.2em;
-  padding: 10px 20px;
-}
-
-/* Estilos para la sección About Us */
-
 .about-us {
   display: flex;
   flex-direction: column;
@@ -570,14 +679,14 @@ form button:hover {
   justify-content: center;
   text-align: center;
   margin: 50px auto;
-  max-width: 800px;
+  max-width: 1000px;
 }
 
 .about-us img {
   width: 100%;
-  max-width: 800px;
+  max-width: 1000px;
   border-radius: 10px;
-  height: 50vh;
+  height: auto;
   object-fit: cover;
   margin-bottom: 20px;
 }
@@ -590,21 +699,139 @@ form button:hover {
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
-.texto-about p {
-  margin-bottom: 20px;
-  line-height: 1.6;
-}
-
-/* Media queries para about us */
-
+/* Sección about us: Media queries para about us */
 @media (max-width: 768px) {
   .about-us {
     max-width: 90%;
   }
 
+  .about-us img {
+    max-width: 100%;
+    height: auto;
+  }
+
   .texto-about {
     padding: 15px;
   }
+}
+
+/* Sección login */
+
+.login-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 700px;
+  background-color: #ebebeb;
+}
+
+.form-login {
+  background-color: #ffffff;
+  padding: 40px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  max-width: 400px;
+  width: 100%;
+  text-align: center;
+}
+
+.user-image {
+  margin-bottom: 25px;
+}
+
+.form-login h2 {
+  color: #EA4D37;
+  font-size: 24px;
+  margin-bottom: 35px;
+}
+
+.inputs-login .box {
+  border: 1px solid #EA4D37;
+  border-radius: 10px;
+  background-color: #ffffff;
+  padding: 15px;
+  color: #0D2D36;
+  width: 100%;
+  margin-bottom: 25px;
+  box-sizing: border-box;
+  transition: background-color 0.3s ease;
+}
+
+.inputs-login .box:focus {
+  background-color: #f0f0f0;
+}
+
+.forgot-password {
+  display: block;
+  margin-bottom: 25px;
+  color: #0D2D36;
+  text-decoration: none;
+  font-size: 16px;
+  transition: color 0.3s ease;
+}
+
+.forgot-password:hover {
+  color: #F37C35;
+}
+
+.remeber {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  color: #0D2D36;
+  margin-bottom: 25px;
+}
+
+.remeber input[type="checkbox"] {
+  appearance: none;
+  width: 15px;
+  height: 15px;
+  border-radius: 5px;
+  border: 1px solid #EA4D37;
+  background-color: #ffffff;
+  cursor: pointer;
+  margin-right: 10px;
+  position: relative;
+  transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+
+.remeber input[type="checkbox"]:checked {
+  background-color: #EA4D37;
+}
+
+.remeber input[type="checkbox"]:checked::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 8px;
+  height: 8px;
+  border: solid 2px #FFF9EA;
+  border-width: 0 2px 2px 0;
+  transform: translate(-50%, -75%) rotate(45deg);
+  background: transparent;
+}
+
+.remeber label {
+  margin: 0;
+  font-size: 16px;
+}
+
+.submit {
+  background-color: #EA4D37;
+  color: #FFF9EA;
+  border: none;
+  border-radius: 50px;
+  padding: 12px 25px;
+  font-size: 16px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.submit:hover {
+  background-color: #F37C35;
 }
 
 /* Sección Footer */

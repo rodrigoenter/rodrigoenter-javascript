@@ -3,17 +3,14 @@ let historialSimulaciones = [];
 
 // Función principal del simulador de cuotas
 function simuladorCuotas() {
-    console.log("Inicio de simulador de cuotas");
 
     const obtenerEntrada = (id) => document.getElementById(id).value;
 
     const mostrarMensaje = (mensaje) => {
-        console.log(`Mensaje al usuario: ${mensaje}`);
         document.getElementById('resultado').textContent = mensaje;
     };
 
     const calcularCuotaConInteres = (precio, cuotas, interesAnual) => {
-        console.log(`Calculando cuota con interés: precio=${precio}, cuotas=${cuotas}, interesAnual=${interesAnual}`);
         const interesMensual = interesAnual / 12 / 100;
         const cuota = precio * interesMensual / (1 - Math.pow(1 + interesMensual, -cuotas));
         return Math.round(cuota);
@@ -21,7 +18,6 @@ function simuladorCuotas() {
 
     //Ejercicio: incluír operadores ternarios
     const calcularCuota = (precio, cuotas) => {
-        console.log(`Calculando cuota: precio=${precio}, cuotas=${cuotas}`);
 
         const tasasInteres = { 9: 24.85, 12: 34.22 };
 
@@ -32,7 +28,6 @@ function simuladorCuotas() {
     };
 
     const obtenerDatosUsuario = () => {
-        console.log("Obtención de datos del usuario");
         return {
             nombre: obtenerEntrada("nombre"),
             edad: obtenerEntrada("edad"),
@@ -41,12 +36,10 @@ function simuladorCuotas() {
     };
 
     const limpiarYConvertirPrecio = (precio) => {
-        console.log(`Limpiar y convertir el precio: ${precio}`);
         return parseFloat(precio.replace(/[^0-9,.-]/g, '').replace(',', '.'));
     };
 
     const datosUsuario = obtenerDatosUsuario();
-    console.log("Datos del usuario obtenidos:", datosUsuario);
 
     const precioProducto = limpiarYConvertirPrecio(obtenerEntrada("precioProducto"));
     const cuotas = parseInt(obtenerEntrada("cuotas"));
@@ -60,9 +53,7 @@ function simuladorCuotas() {
 
     // Agregar al historial
     const simulacion = { ...datosUsuario, precioProducto, cuotas, precioPorCuota, precioTotal };
-    console.log("Simulación generada:", simulacion);
     historialSimulaciones.push(simulacion);
-    console.log("Historial de simulaciones actualizado:", historialSimulaciones);
 
     guardarHistorialLocalStorage();
     mostrarHistorial();
@@ -70,7 +61,6 @@ function simuladorCuotas() {
 
 // Función para reiniciar el simulador/limpiar campos
 function reiniciarSimulador() {
-    console.log("Reiniciar simulador y limpieza de campos");
     document.getElementById("simuladorCuotas").reset();
     document.getElementById('resultado').textContent = '';
     document.getElementById('listaHistorial').innerHTML = '';
@@ -81,18 +71,15 @@ function reiniciarSimulador() {
     localStorage.removeItem('datosUsuario');
     localStorage.removeItem('historialSimulaciones');
     historialSimulaciones = [];
-    console.log("Almacenamiento local y simulador reiniciados");
 }
 
 // Función para validar ingreso de números sin símbolos
 function validarEntradaNumerica(input) {
-    console.log(`Validando entrada numérica: ${input.value}`);
     input.value = input.value.replace(/[^0-9]/g, '');
 }
 
 // Función para agregar al historial
 function agregarAlHistorial(nombre, edad, destino, precioProducto, cuotas, precioTotal) {
-    console.log("Agregar al historial de simulaciones");
     let listaHistorial = document.getElementById('listaHistorial');
     let li = document.createElement('li');
     li.textContent = `${nombre}, ${edad} años - Viaje a ${destino} (${precioProducto}): $${precioTotal.toFixed(2)} en ${cuotas} cuotas.`;
@@ -105,7 +92,6 @@ function agregarAlHistorial(nombre, edad, destino, precioProducto, cuotas, preci
 
 // Función para guardar el historial y los inputs en localStorage
 function guardarHistorialLocalStorage() {
-    console.log("Guardado de historial de simulaciones en localStorage");
     localStorage.setItem('historialSimulaciones', JSON.stringify(historialSimulaciones));
 
     // Guardar inputs en localStorage
@@ -117,12 +103,10 @@ function guardarHistorialLocalStorage() {
         cuotas: document.getElementById('cuotas').value
     };
     localStorage.setItem('datosUsuario', JSON.stringify(datosUsuario));
-    console.log("Datos del usuario guardados en localStorage:", datosUsuario);
 }
 
 // Función para integrar SweetAlert y Toastify
 function buscarPorDestino() {
-    console.log("Buscando simulaciones por destino");
     const destinoBuscado = normalizarTexto(document.getElementById('buscarDestino').value.trim());
     const resultados = filtrarPorDestino(destinoBuscado);
 
@@ -130,7 +114,6 @@ function buscarPorDestino() {
     listaResultados.innerHTML = '';
 
     if (resultados.length > 0) {
-        console.log("Resultados encontrados:", resultados);
         resultados.forEach((simulacion, index) => {
             const item = document.createElement('li');
             item.textContent = `Resultados ${index + 1}: ${simulacion.nombre}, ${simulacion.destino}, $${simulacion.precioPorCuota} por cuota (${simulacion.cuotas} cuotas)`;
@@ -154,7 +137,6 @@ function buscarPorDestino() {
             }
         }).showToast();
     } else {
-        console.log("No se encontraron resultados para el destino ingresado");
         Swal.fire({
             icon: 'error',
             title: 'Parece que algo salió mal :(',
@@ -186,7 +168,6 @@ function normalizarTexto(texto) {
 
 // Función para filtrar simulaciones por destino
 const filtrarPorDestino = (destinoBuscado) => {
-    console.log(`Filtrado de simulaciones para el destino: ${destinoBuscado}`);
     return historialSimulaciones.filter(({ destino }) =>
         normalizarTexto(destino).includes(destinoBuscado)
     );
@@ -194,15 +175,36 @@ const filtrarPorDestino = (destinoBuscado) => {
 
 // Función para guardar el historial en un archivo de texto (.txt)
 function guardarHistorialComoTxt() {
-    console.log("Guardado de historial como archivo de texto");
+    if (historialSimulaciones.length === 0) {
+        Swal.fire({
+            icon: 'warning',
+            title: 'Historial vacío',
+            text: 'No hay simulaciones en el historial para guardar.',
+            confirmButtonText: 'Entendido',
+            customClass: {
+                container: 'swal-container',
+                popup: 'swal-popup',
+                title: 'swal-title',
+                content: 'swal-content',
+                confirmButton: 'swal-confirm-button'
+            },
+            buttonsStyling: false,
+            background: '#ffffff',
+            color: '#0D2D36',
+            confirmButtonColor: '#EA4D37',
+            confirmButtonText: 'Entendido'
+        });
+        return;
+    }
+
     const contenidoHistorial = historialSimulaciones.map((simulacion, index) =>
         `Simulación ${index + 1}: ${simulacion.nombre}, ${simulacion.destino}, $${simulacion.precioPorCuota} por cuota (${simulacion.cuotas} cuotas)`
     ).join('\n');
 
-    // Crear un blob con el contenido del historial
+    // Función para crear un blob con el contenido del historial
     const blob = new Blob([contenidoHistorial], { type: 'text/plain;charset=utf-8' });
 
-    // Crear un enlace para la descarga del archivo
+    // Función para crear un enlace para la descarga del archivo
     const enlace = document.createElement('a');
     enlace.href = URL.createObjectURL(blob);
     enlace.download = 'historial_simulaciones.txt';
@@ -210,12 +212,11 @@ function guardarHistorialComoTxt() {
 
     // Liberar el objeto URL creado
     URL.revokeObjectURL(enlace.href);
-    console.log("Historial guardado como archivo de texto y enlace de descarga creado");
+
 }
 
 // Función para ingresar el precio desde las cards
 function consultarPrecio(destino, noches, precio) {
-    console.log(`Consultando precio para: ${destino} (${noches} noches) con precio ${precio}`);
     document.getElementById('destino').value = destino;
     document.getElementById('precioProducto').value = precio;
     Toastify({
@@ -235,13 +236,42 @@ function consultarPrecio(destino, noches, precio) {
     }).showToast();
 }
 
-// Recuperar datos desde localStorage al cargar la página
+// Función para consultar la oferta del día desde un archivo JSON
+function consultarOferta() {
+    fetch('data/data.json')
+        .then(response => response.json())
+        .then(data => {
+            const randomIndex = Math.floor(Math.random() * data.length);
+            const oferta = data[randomIndex];
+
+            document.getElementById('ofertaDescripcion').innerHTML = `¡Oferta especial en ${oferta.destino} por ${oferta.noches}! Precio: $${oferta.precio}`;
+
+            document.getElementById('destino').value = oferta.destino;
+            document.getElementById('precioProducto').value = oferta.precio;
+
+            Toastify({
+                text: `La oferta del día es ${oferta.destino} (${oferta.noches}) por $${oferta.precio}`,
+                close: true,
+                gravity: 'top',
+                position: 'right',
+                style: {
+                    background: "#EA4D37",
+                    color: "#FFF9EA",
+                    borderRadius: "10px",
+                    padding: "10px 20px",
+                    fontSize: "16px",
+                    boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
+                },
+            }).showToast();
+        })
+        .catch(error => console.error('Error al cargar la oferta:', error));
+}
+
+// Función para recuperar datos desde localStorage al cargar la página
 document.addEventListener('DOMContentLoaded', () => {
-    console.log("Cargando datos desde localStorage");
     const historialGuardado = localStorage.getItem('historialSimulaciones');
     if (historialGuardado) {
         historialSimulaciones = JSON.parse(historialGuardado);
-        console.log("Historial cargado desde localStorage:", historialSimulaciones);
     }
 
     const datosUsuarioGuardados = localStorage.getItem('datosUsuario');
@@ -252,7 +282,6 @@ document.addEventListener('DOMContentLoaded', () => {
         document.getElementById('destino').value = destino || '';
         document.getElementById('precioProducto').value = precioProducto || '';
         document.getElementById('cuotas').value = cuotas || '';
-        console.log("Datos del usuario cargados desde localStorage:", { nombre, edad, destino, precioProducto, cuotas });
     }
 
     mostrarHistorial();
@@ -260,7 +289,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
 // Función para mostrar historial en la interfaz
 function mostrarHistorial() {
-    console.log("Mostrando historial de simulaciones");
     const listaHistorial = document.getElementById('listaHistorial');
     listaHistorial.innerHTML = '';
 
@@ -269,5 +297,49 @@ function mostrarHistorial() {
         li.textContent = `Simulación ${index + 1}: ${simulacion.nombre}, ${simulacion.destino}, $${simulacion.precioPorCuota} por cuota (${simulacion.cuotas} cuotas)`;
         listaHistorial.appendChild(li);
     });
-    console.log("Historial mostrado en la interfaz");
 }
+
+// Función para mostrar el botón de volver arriba cuando el usuario se desplaza hacia abajo
+window.addEventListener('scroll', () => {
+    const scrollToTopBtn = document.getElementById('scrollToTop');
+    if (window.scrollY > 300) {
+        scrollToTopBtn.style.display = 'block';
+    } else {
+        scrollToTopBtn.style.display = 'none';
+    }
+});
+
+// Función para volver a la parte superior de la página
+document.getElementById('scrollToTop').addEventListener('click', () => {
+    window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+    });
+});
+
+// Función para manejo de envío del formulario de suscripción
+document.getElementById('subscriptionForm').addEventListener('submit', (event) => {
+    event.preventDefault();
+
+    const email = document.getElementById('email').value;
+
+    Swal.fire({
+        icon: 'success',
+        title: '¡Suscripción exitosa!',
+        text: 'Gracias por suscribirte.',
+        confirmButtonText: 'Aceptar',
+        customClass: {
+            container: 'swal-container',
+            popup: 'swal-popup',
+            title: 'swal-title',
+            content: 'swal-content',
+            confirmButton: 'swal-confirm-button'
+        },
+        buttonsStyling: false,
+        background: '#ffffff',
+        color: '#0D2D36',
+        confirmButtonColor: '#EA4D37'
+    });
+
+    document.getElementById('email').value = '';
+});

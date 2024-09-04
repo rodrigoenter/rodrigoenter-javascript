@@ -38,37 +38,31 @@
             </div>
         </div>
     </nav>
-    <section id="contacto">
-        <!-- Ubicación Google Maps -->
-        <div class="ubicacion">
-            <iframe
-                src="https://www.google.com/maps/embed?pb=!1m17!1m12!1m3!1d12925.287263415463!2d-64.2911773!3d-35.91462215!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m2!1m1!2zMzXCsDU0JzU3LjciUyA2NMKwMTcnNDQuNCJX!5e0!3m2!1ses!2sar!4v1715704368918!5m2!1ses!2sar"
-                width="100%" height="400" style="border:0;" allowfullscreen="" loading="lazy"
-                referrerpolicy="no-referrer-when-downgrade">
-            </iframe>
-        </div>
-
-        <!-- Formulario de contacto -->
-        <form class="form-contacto">
-            <h2>Envíanos tu consulta</h2>
-            <label for="nombre">Nombre y Apellido:</label>
-            <input type="text" id="nombre" name="nombre" placeholder="Tu nombre y apellido" required>
-            <label for="telefono">Teléfono:</label>
-            <input type="tel" id="telefono" name="telefono" placeholder="Tu número de teléfono" required>
-            <label for="email">e-mail:</label>
-            <input type="email" id="email" name="email" placeholder="Tu dirección de e-mail" required>
-            <label for="mensaje">Mensaje:</label>
-            <textarea id="mensaje" name="mensaje" cols="30" rows="5" placeholder="Tu mensaje"></textarea>
-            <div class="terminos">
-                <a href="#">Políticas de privacidad</a>
-                <a href="#">Términos y condiciones</a>
+    <div class="login-container">
+        <form class="form-login">
+            <div class="user-image">
+                <img src="../assets/images/user_icon.svg" alt="Imagen de usuario" height="100">
             </div>
-            <div class="boton-container">
-                <button class="boton-contacto">Enviar</button>
+            <h2>Iniciar sesión</h2>
+            <div class="inputs-login">
+                <div class="input-icon">
+                    <input type="email" class="box" placeholder="Ingresá tu correo" required>
+                    <i class="fas fa-envelope"></i>
+                </div>
+                <div class="input-icon">
+                    <input type="password" class="box" placeholder="Ingresá tu contraseña" required>
+                    <i class="fas fa-lock"></i>
+                </div>
+                <div class="remeber">
+                    <input type="checkbox" id="rememberMe">
+                    <label for="rememberMe">Mantener sesión iniciada</label>
+                </div>
+                <a href="#" class="forgot-password">¿Olvidaste tu contraseña?</a>
+                <button type="submit" class="submit btn-primary" id="loginButton">Login</button>
             </div>
         </form>
-    </section>
-
+    </div>
+    
     <footer>
         <div>
             <a href="https://web.whatsapp.com" target="_blank">
@@ -89,6 +83,7 @@
         crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+    <script src="https://kit.fontawesome.com/a076d05399.js"></script>
     <script src="../js/main.js"></script>
 </body>
 

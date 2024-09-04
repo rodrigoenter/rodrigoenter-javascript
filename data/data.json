@@ -1,0 +1,6 @@
+[
+    { "destino": "Mendoza", "noches": "7 noches", "precio": 590000 },
+    { "destino": "Salta", "noches": "5 noches", "precio": 699999 },
+    { "destino": "Ushuaia", "noches": "8 noches", "precio": 1000000 },
+    { "destino": "Buenos Aires", "noches": "4 noches", "precio": 500000 }
+]
