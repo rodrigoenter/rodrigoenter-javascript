@@ -343,3 +343,45 @@ document.getElementById('subscriptionForm').addEventListener('submit', (event) =
 
     document.getElementById('email').value = '';
 });
+
+// Función para animación mediante GSAP: Hero image
+
+const heroImage = document.querySelector('.hero-image img');
+const heroText = document.querySelector('.hero-text');
+
+gsap.timeline()
+    .fromTo(heroImage, { scale: 1.2, opacity: 0 }, { scale: 1, opacity: 1, duration: 1, ease: "power2.out" })
+    .fromTo(heroText, { opacity: 0, y: 50 }, { opacity: 1, y: 0, duration: 1, ease: "power2.out" }, "-=0.5");
+
+// Función para animación mediante GSAP: Oferta del día
+
+document.addEventListener('DOMContentLoaded', () => {
+    const iconContainer = document.querySelector('.icon-container');
+    const ofertaHeading = document.querySelector('.oferta-dia-heading');
+    const ofertaDescripcion = document.querySelector('#ofertaDescripcion');
+    const animarElemento = document.querySelector('#ofertaDelDia');
+
+    if (!iconContainer || !ofertaHeading || !ofertaDescripcion || !animarElemento) {
+        console.error('Uno o más elementos no se encontraron en el DOM.');
+        return;
+    }
+
+    function animateElements(entries) {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                gsap.timeline()
+                    .fromTo(iconContainer, { scale: 0, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.5 })
+                    .fromTo(ofertaHeading, { y: -50, opacity: 0 }, { y: 0, opacity: 1, duration: 0.5 }, '-=0.25')
+                    .fromTo(ofertaDescripcion, { opacity: 0 }, { opacity: 1, duration: 0.5 }, '-=0.25');
+
+                observer.unobserve(entry.target);
+            }
+        });
+    }
+
+    const observer = new IntersectionObserver(animateElements, {
+        threshold: 0.5
+    });
+
+    observer.observe(animarElemento);
+});

@@ -64,7 +64,8 @@ main {
   transition: background-color 0.3s ease;
 }
 
-.btn-primary:hover {
+.btn-primary.custom:hover, 
+.btn-primary.custom:focus {
   background-color: #F37C35;
 }
 
@@ -231,19 +232,23 @@ main {
 @media (max-width: 768px) {
 
   .hero-text {
-    padding: 2px;
+    padding: 5px;
   }
 
   .hero-text h1 {
-    font-size: 22px;
+    font-size: 24px;
+    margin-bottom: 5px;
   }
 
   .hero-text p {
-    font-size: 16px;
+    font-size: 14px;
+    margin-top: 0;
+    margin-bottom: 10px;
   }
 
   .btn-primary {
-    font-size: 12px;
+    font-size: 14px;
+    padding: 10px 15px;
     align-items: center;
   }
 }

@@ -53,6 +53,7 @@
 - Bootstrap.
 - CSS.
 - JavaScript.
+- Adobe Illustrator
 - SweetAlert2.
 - Toastify JS.
 ![VisualStudioCode](https://img.icons8.com/color/96/000000/visual-studio-code-2019.png)
@@ -60,7 +61,7 @@
 ![Bootstrap](https://img.icons8.com/color/96/000000/bootstrap.png)
 ![CSS](https://img.icons8.com/color/96/000000/css3.png)
 ![JavaScript](https://img.icons8.com/color/96/000000/javascript.png)
-![AdobeIllustrator] (https://img.icons8.com/color/96/000000/adobe-illustrator.png)
+![AdobeIllustrator](https://img.icons8.com/color/96/000000/adobe-illustrator.png)
 
 -------------------------
 
