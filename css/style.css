@@ -139,6 +139,7 @@ main {
 
 .card-body {
   padding: 20px;
+  text-align: center;
 }
 
 .card-title {
@@ -247,18 +248,28 @@ main {
   }
 }
 
-/* Sección Index: Oferta del día*/
+/* Sección Index: Oferta del día (Ajax & Json) */
 
-.alert {
-  background-image: url('../assets/images/oferta.png');
+.oferta-dia {
+  background-image: url('../assets/images/oferta_banner.png');
   background-size: cover;
   background-position: center;
   color: #ebebeb;
-  border-radius: 15px; 
+  border-radius: 15px;
   padding: 20px;
 }
 
-.alert-heading {
+.icon-container {
+  text-align: center;
+  margin-bottom: 10px;
+}
+
+.icon-container img {
+  width: 100px;
+  height: 100px;
+}
+
+.oferta-dia-heading {
   font-size: 1.5rem;
   font-weight: 700;
   margin-bottom: 10px;
@@ -270,7 +281,7 @@ main {
   color: #ebebeb;
 }
 
-.alert .btn-primary {
+.oferta-dia .btn-primary {
   background-color: #EA4D37;
   border: none;
   border-radius: 50px;
@@ -281,8 +292,8 @@ main {
   transition: background-color 0.3s;
 }
 
-.alert .btn-primary:hover,
-.alert .btn-primary:focus {
+.oferta-dia .btn-primary:hover,
+.oferta-dia .btn-primary:focus {
   background-color: #F37C35;
 }
 

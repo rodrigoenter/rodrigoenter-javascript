@@ -60,7 +60,7 @@
                             <p class="card-text">Descubrí los paisajes montañosos y lagos cristalinos de Bariloche, el
                                 paraíso argentino para amantes de la aventura.</p>
                             <a href="#simuladorCuotas" class="btn btn-primary"
-                                onclick="consultarPrecio('Bariloche', '5 noches', 499999)">Consultar</a>
+                                onclick="consultarPrecio('Bariloche', '5 noches', 899999)">Consultar</a>
                         </div>
                     </div>
                 </div>
@@ -110,8 +110,11 @@
     <div id="ofertaDelDia" class="container mt-4">
         <div class="row">
             <div class="col-md-12">
-                <div class="alert alert-info text-center" role="alert">
-                    <h4 class="alert-heading">¡Oferta del Día!</h4>
+                <div class="oferta-dia text-center" role="alert">
+                    <div class="icon-container">
+                        <img src="assets/images/sale_icon.svg" alt="Icono Oferta del Día" />
+                    </div>
+                    <h4 class="oferta-dia-heading">¡Oferta del Día!</h4>
                     <p id="ofertaDescripcion">¡Descubrí nuestra oferta especial para vos y no te la pierdas!</p>
                     <a href="#simuladorCuotas">
                         <button class="btn btn-primary" onclick="consultarOferta()">Consultar Oferta</button>
@@ -120,6 +123,7 @@
             </div>
         </div>
     </div>
+    <!-- Sección simulador de precios y viajes -->
     <div class="simulador-container">
         <h5>Simulá el precio de tu viaje</h5>
         <form id="simuladorCuotas" onsubmit="event.preventDefault(); simuladorCuotas();">
@@ -157,7 +161,7 @@
         <ul id="listaResultados"></ul>
     </div>
     <button id="scrollToTop" class="scroll-to-top-btn">Volver al inicio</button>
-    <!-- Apartado de suscripción -->
+    <!-- Sección de suscripción -->
     <section id="subscription" class="subscription-section">
         <h2 class="subscription-title">¡Suscribite a nuestro boletín!</h2>
         <p class="subscription-description">Recibí las últimas noticias, ofertas y actualizaciones directamente en tu
